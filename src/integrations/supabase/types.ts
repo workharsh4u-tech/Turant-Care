@@ -369,6 +369,10 @@ export type Database = {
         Returns: boolean
       }
       set_patient_pin: { Args: { p_pin: string }; Returns: undefined }
+      set_pin_admin: {
+        Args: { p_pin: string; p_user_id: string }
+        Returns: undefined
+      }
       verify_patient_pin: {
         Args: { p_patient_id: string; p_pin: string }
         Returns: boolean
