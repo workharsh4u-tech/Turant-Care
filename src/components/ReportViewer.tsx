@@ -172,7 +172,9 @@ export default function ReportViewer({ patientId, accessedByRole, onClose, showP
                     <div className="h-4 bg-muted rounded w-2/3" />
                   </div>
                 ) : summary ? (
-                  <p className="text-sm leading-relaxed whitespace-pre-wrap">{summary}</p>
+                  <div className="text-sm leading-relaxed prose prose-sm dark:prose-invert max-w-none">
+                    <ReactMarkdown>{summary}</ReactMarkdown>
+                  </div>
                 ) : (
                   <p className="text-sm text-muted-foreground">No summary available.</p>
                 )}

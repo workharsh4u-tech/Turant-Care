@@ -386,7 +386,11 @@ export default function PatientDashboard() {
                 <div className={`max-w-[80%] p-3 rounded-lg text-sm ${
                   m.role === "user" ? "bg-primary text-primary-foreground" : "bg-muted"
                 }`}>
-                  {m.content}
+                  {m.role === "assistant" ? (
+                    <div className="prose prose-sm dark:prose-invert max-w-none">
+                      <ReactMarkdown>{m.content}</ReactMarkdown>
+                    </div>
+                  ) : m.content}
                 </div>
               </div>
             ))}
