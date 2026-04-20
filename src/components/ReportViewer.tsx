@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
 import { Folder, FileText, ArrowLeft, Bot, X, Eye } from "lucide-react";
 import ReactMarkdown from "react-markdown";
-import EmbeddedReportViewer from "@/components/EmbeddedReportViewer";
 import TrendGraph from "@/components/TrendGraph";
 
 interface ReportViewerProps {
