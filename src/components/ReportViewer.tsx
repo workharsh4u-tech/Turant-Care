@@ -1,3 +1,4 @@
+import type { ReportFile } from "@/types/models";
 import { useState, useEffect } from "react";
 import {
   getPatientReports,
@@ -22,12 +23,12 @@ interface ReportViewerProps {
 }
 
 export default function ReportViewer({ patientId, accessedByRole, onClose, showPrivate = false }: ReportViewerProps) {
-  const [reports, setReports] = useState<any[]>([]);
+  const [reports, setReports] = useState<ReportFile[]>([]);
   const [dateGroups, setDateGroups] = useState<string[]>([]);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [summary, setSummary] = useState<string | null>(null);
   const [loadingSummary, setLoadingSummary] = useState(false);
-  const [viewerFile, setViewerFile] = useState<any | null>(null);
+  const [viewerFile, setViewerFile] = useState<ReportFile | null>(null);
 
   const { user, profile } = useAuth();
 
