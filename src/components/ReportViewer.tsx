@@ -208,8 +208,8 @@ export default function ReportViewer({ patientId, accessedByRole, onClose, showP
                       <div className="h-4 bg-muted rounded w-2/3" />
                     </div>
                   ) : summary ? (
-                    <div className="text-sm leading-relaxed prose prose-sm dark:prose-invert max-w-none">
-                      <ReactMarkdown>{summary}</ReactMarkdown>
+                    <div className="text-sm leading-relaxed prose prose-sm dark:prose-invert max-w-none prose-table:text-xs prose-th:px-2 prose-td:px-2 prose-th:py-1 prose-td:py-1 prose-table:border prose-th:border prose-td:border prose-th:border-border prose-td:border-border">
+                      <ReactMarkdown remarkPlugins={[remarkGfm]}>{summary}</ReactMarkdown>
                     </div>
                   ) : (
                     <p className="text-sm text-muted-foreground">No summary available.</p>
