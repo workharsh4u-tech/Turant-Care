@@ -57,28 +57,30 @@ export default function ReportViewer({ patientId, accessedByRole, onClose, showP
     }
   };
 
-  const loadSummary = async (dateGroup: string) => {
+  const loadSummary = async (dateGroup: string, forceRegenerate = false) => {
     setLoadingSummary(true);
     setSummary(null);
 
-    // Check existing summary
-    const { data: existing } = await supabase
-      .from("ai_summaries")
-      .select("*")
-      .eq("patient_id", patientId)
-      .eq("date_group", dateGroup)
-      .single();
+    if (!forceRegenerate) {
+      // Check existing summary
+      const { data: existing } = await supabase
+        .from("ai_summaries")
+        .select("*")
+        .eq("patient_id", patientId)
+        .eq("date_group", dateGroup)
+        .maybeSingle();
 
-    if (existing) {
-      setSummary(existing.summary_text);
-      setLoadingSummary(false);
-      return;
+      if (existing) {
+        setSummary(existing.summary_text);
+        setLoadingSummary(false);
+        return;
+      }
     }
 
     // Generate new summary via AI
     try {
       const dateReports = reports.filter((r) => r.date_group === dateGroup);
-      const { data, error } = await supabase.functions.invoke("ai-summary", {
+      const { data } = await supabase.functions.invoke("ai-summary", {
         body: { patientId, dateGroup, reportNames: dateReports.map((r: any) => r.file_name) },
       });
       if (data?.summary) {
