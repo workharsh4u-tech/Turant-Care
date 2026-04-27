@@ -221,6 +221,15 @@ export default function ReportViewer({ patientId, accessedByRole, onClose, showP
         </div>
       </div>
 
+      {viewerFile && (
+        <EmbeddedReportViewer
+          fileUrl={viewerFile.file_url}
+          fileName={viewerFile.file_name}
+          fileType={viewerFile.file_type}
+          watermark={`TurantCare\n${profile?.full_name || accessedByRole}\n${new Date().toLocaleString()}`}
+          onClose={() => setViewerFile(null)}
+        />
+      )}
     </>
   );
 }
