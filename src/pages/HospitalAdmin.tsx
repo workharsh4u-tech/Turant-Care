@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import type { Hospital, Doctor } from "@/types/models";
 import { getHospitalByAdmin, getHospitalDoctors, createHospitalDoctor } from "@/services/hospital.service";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
@@ -11,8 +12,8 @@ import { Building2, UserPlus, Users } from "lucide-react";
 export default function HospitalAdmin() {
   const { user } = useAuth();
   const { toast } = useToast();
-  const [hospital, setHospital] = useState<Record<string, any> | null>(null);
-  const [doctors, setDoctors] = useState<Record<string, any>[]>([]);
+  const [hospital, setHospital] = useState<Hospital | null>(null);
+  const [doctors, setDoctors] = useState<Doctor[]>([]);
   const [showAdd, setShowAdd] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", specialization: "", password: "" });
   const [adding, setAdding] = useState(false);
