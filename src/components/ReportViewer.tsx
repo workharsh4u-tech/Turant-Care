@@ -2,9 +2,10 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
-import { Folder, FileText, ArrowLeft, Bot, X, Eye } from "lucide-react";
+import { Folder, FileText, ArrowLeft, Bot, X, Eye, RefreshCw } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import TrendGraph from "@/components/TrendGraph";
+import EmbeddedReportViewer from "@/components/EmbeddedReportViewer";
 
 interface ReportViewerProps {
   patientId: string;
