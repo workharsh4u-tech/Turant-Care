@@ -53,7 +53,12 @@ export default function ReportViewer({ patientId, accessedByRole, onClose, showP
   }
 };
 
-  const loadSummary = async (dateGroup: string, forceRegenerate = false) => {
+
+  const loadSummary = async (
+  dateGroup: string,
+  forceRegenerate = false,
+  reportFile?: ReportFile
+  ) => {
     setLoadingSummary(true);
     setSummary(null);
 
@@ -70,12 +75,12 @@ export default function ReportViewer({ patientId, accessedByRole, onClose, showP
 
     // Generate new summary via AI
     try {
-      const dateReports = reports.filter((r) => r.date_group === dateGroup);
       const data = await generateAISummary(
-      patientId,
-      dateGroup,
-      dateReports.map((r: any) => r.file_name)
-    );
+       patientId,
+       dateGroup,
+       [reportFile?.file_name || ""],
+       reportFile?.file_url
+);
       if (data?.summary) {
         setSummary(data.summary);
         // Store summary (include parameters JSON for trend tracking)
@@ -167,7 +172,11 @@ export default function ReportViewer({ patientId, accessedByRole, onClose, showP
                         variant="ghost"
                         size="icon"
                         title="Open report in viewer"
-                        onClick={() => setViewerFile(r)}
+                        onClick={() => {
+                        setViewerFile(r);
+                        setSelectedReport(r);
+                        loadSummary(selectedDate!, false, r);
+                        }}
                       >
                         <Eye className="w-4 h-4" />
                       </Button>
